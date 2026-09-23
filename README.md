@@ -6,7 +6,7 @@
 
 Engineering design, integration and validation of a 75 mm 1S analog FPV micro quadcopter.
 
-> **Project status:** V1 architecture frozen · Electronics documentation in progress · Physical build not yet validated
+> **Project status:** V1 architecture frozen · Documentation baseline complete · Physical build not yet validated
 
 ## Project goal
 
@@ -24,7 +24,7 @@ Mechanical design is intentionally kept simple. The project is not primarily a c
 
 ## Engineering workflow
 
-**01 Requirements → 02 Architecture → 03 Component Selection → 04 BOM → 05 Electrical Design → 06 Firmware → 07 Integration → 08 Verification → 09 Validation → 10 Iterations**
+**01 Requirements → 02 Architecture → 03 Component Selection → 04 BOM → 05 Electrical Design → 06 Firmware → 07 Integration → 08 Verification → 09 Validation → 10 Iterations → 11 Mechanical → 12 References**
 
 The intended development model is a V-model:
 
@@ -117,6 +117,10 @@ A design value is not presented as a measured result.
 8. Run verification tests.
 9. Perform flight validation.
 10. Record measured results and update the iteration log.
+
+## Documentation baseline
+
+All 12 engineering areas now have a defined place in the repository. The remaining work is physical: procure/identify exact hardware, verify pad-level wiring, configure the actual FC, execute bench tests, fly the system, and replace TBD entries with evidence.
 
 ## Current limitations
 
