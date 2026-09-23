@@ -1,0 +1,11 @@
+Item,Qty,Specification,Status,Notes
+Flight controller,1,BETAFPV F4 1S 5A AIO Serial ELRS,VERIFY,Record exact revision
+Camera,1,Caddx Ant Nano,VERIFY,Record exact revision
+VTX,1,AKK Nano3-class analog VTX,VERIFY,Record exact revision
+Motor,4,0802 approximately 22000KV,SELECTED,Record exact part number
+Propeller,1 set,40mm 3-blade 1.0mm-class shaft,SELECTED,Verify motor shaft
+Battery,1+,1S 450mAh HV BT2.0,SELECTED,Record C rating
+Frame,1,75mm-class commercial whoop frame,SELECTED,Record exact frame
+Antenna,1,Matched 5.8GHz VTX antenna,VERIFY,Match connector
+Hardware,as required,Appropriate fasteners and battery retention,TBD,Verify against purchased frame
+Wire/consumables,as required,Silicone wire heat-shrink solder,TBD,Assembly consumables
