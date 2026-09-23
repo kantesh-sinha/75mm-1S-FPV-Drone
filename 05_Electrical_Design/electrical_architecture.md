@@ -1,5 +1,9 @@
 # 05 — Electrical Architecture
 
+![Preliminary system wiring concept](images/blueprint_wiring_v1.jpg)
+
+*Figure — Preliminary wiring concept generated during the concept-design phase. Exact FC pads and video routing remain verification items.*
+
 ## Power
 ```text
 1S LiPo → BT2.0 → VBAT/GND → F4 1S AIO
