@@ -1,6 +1,6 @@
 # 75 mm 1S Analog FPV Drone
 
-![Initial drone concept](images/drone_concept.png)
+![Initial drone concept](images/drone_concept.jpg)
 
 *Figure 1 — Initial V1 system concept generated during the concept-design phase.*
 
