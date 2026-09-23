@@ -1,5 +1,9 @@
 # 04 — Bill of Materials
 
+![Preliminary BOM generated during concept design](images/blueprint_bom_v1.jpg)
+
+*Figure — Preliminary component list and cost estimate from the concept-design phase. Values are not treated as final verified sourcing data.*
+
 | Item | Qty | Preliminary specification | Status |
 |---|---:|---|---|
 | Flight controller | 1 | BETAFPV F4 1S 5A AIO, Serial ELRS | Verify exact revision |
