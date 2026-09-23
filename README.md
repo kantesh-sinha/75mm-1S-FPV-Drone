@@ -1,5 +1,8 @@
 # 75 mm 1S Analog FPV Drone
 
+<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/24a9a99e-3ddb-4a22-b2e2-525d79fcd1f4" />
+
+
 Engineering design, integration and validation of a 75 mm 1S analog FPV micro quadcopter.
 
 > **Project status:** V1 architecture frozen · Electronics documentation in progress · Physical build not yet validated
