@@ -14,7 +14,7 @@ The goal of this repository is not simply to show a finished drone. It explains 
 
 # 1. Start Here: What Is a Drone?
 
-A drone is an aircraft that operates without a pilot physically sitting inside it. In broader aviation terminology, a **UAS (Unmanned Aircraft System)** includes the unmanned aircraft plus the equipment needed to operate it. citeturn0search3
+A drone is an aircraft that operates without a pilot physically sitting inside it. In broader aviation terminology, a **UAS (Unmanned Aircraft System)** includes the unmanned aircraft plus the equipment needed to operate it. [FAA — UAS definition](https://www.faa.gov/faq/what-unmanned-aircraft-system-uas)
 
 A quadcopter is a type of drone that uses **four rotating propellers** to generate and control thrust.
 
@@ -153,7 +153,7 @@ This is why the repository is structured around requirements, architecture, inte
 | VTX | Separate analog VTX, AKK Nano3-class |
 | Firmware | Betaflight |
 
-The selected BETAFPV F4 1S 5A Serial ELRS board is documented by the manufacturer with an STM32F411CEU6, BMI270, integrated Serial ELRS, 26 × 26 mm mounting, 1S ESC, 5 A continuous / 6 A peak ESC specification, DShot300/600 and 8 MB Blackbox. citeturn1search0
+The selected BETAFPV F4 1S 5A Serial ELRS board is documented by the manufacturer with an STM32F411CEU6, BMI270, integrated Serial ELRS, 26 × 26 mm mounting, 1S ESC, 5 A continuous / 6 A peak ESC specification, DShot300/600 and 8 MB Blackbox. [BETAFPV F4 1S 5A AIO Serial ELRS documentation](https://betafpv.com/products/f4-1s-5a-aio-brushless-flight-controller-elrs-2-4g)
 
 **Important:** product-family names are not enough to determine final wiring. The exact purchased board revision is the authority for pad labels, firmware target and physical configuration.
 
@@ -185,7 +185,7 @@ Think of the FC as the central embedded computer.
 
 It is the processor executing the flight-control firmware.
 
-The selected FC uses an **STM32F411CEU6**. citeturn1search0
+The selected FC uses an **STM32F411CEU6**. [BETAFPV F4 1S 5A AIO Serial ELRS documentation](https://betafpv.com/products/f4-1s-5a-aio-brushless-flight-controller-elrs-2-4g)
 
 ## 5.3 IMU
 
@@ -195,7 +195,7 @@ It measures motion-related quantities such as acceleration and angular rate.
 
 The FC uses this information to determine how the aircraft is moving.
 
-The selected FC uses a **BMI270**. citeturn1search0
+The selected FC uses a **BMI270**. [BETAFPV F4 1S 5A AIO Serial ELRS documentation](https://betafpv.com/products/f4-1s-5a-aio-brushless-flight-controller-elrs-2-4g)
 
 ## 5.4 ESC
 
@@ -286,7 +286,7 @@ Integrated ELRS receiver
 Flight controller
 ~~~
 
-ExpressLRS documents CRSF as the serial protocol used between UART-based receivers and the flight controller. citeturn0search1turn0search12
+ExpressLRS documents CRSF as the serial protocol used between UART-based receivers and the flight controller. [ExpressLRS receiver/FC configuration documentation](https://www.expresslrs.org/quick-start/receivers/configuring-fc/)
 
 ## 5.11 CRSF
 
@@ -316,7 +316,7 @@ It handles functions including:
 - Blackbox logging
 - configuration
 
-The Betaflight setup guide recommends configuring and testing failsafe and performing bench checks without propellers before flight. citeturn0search8
+The Betaflight setup guide recommends configuring and testing failsafe and performing bench checks without propellers before flight. [Betaflight Setup Guide](https://betaflight.com/docs/wiki/getting-started/setup-guide)
 
 ## 5.13 PID
 
@@ -347,7 +347,7 @@ For V1, the priority is:
 
 **DShot** is a digital protocol used to communicate motor commands from the flight controller to compatible ESCs.
 
-The selected FC supports DShot300 and DShot600. citeturn1search0
+The selected FC supports DShot300 and DShot600. [BETAFPV F4 1S 5A AIO Serial ELRS documentation](https://betafpv.com/products/f4-1s-5a-aio-brushless-flight-controller-elrs-2-4g)
 
 ## 5.15 Analog FPV
 
@@ -402,7 +402,7 @@ Camera → FC → OSD → VTX
 
 It records internal flight data for troubleshooting, control analysis, filtering analysis, vibration investigation, tuning and post-flight engineering review.
 
-The selected BETAFPV FC is documented with 8 MB Blackbox memory. citeturn1search0
+The selected BETAFPV FC is documented with 8 MB Blackbox memory. [BETAFPV F4 1S 5A AIO Serial ELRS documentation](https://betafpv.com/products/f4-1s-5a-aio-brushless-flight-controller-elrs-2-4g)
 
 ## 5.19 Failsafe
 
@@ -410,7 +410,7 @@ Failsafe defines what the aircraft does when radio control is lost.
 
 It is not an optional feature to ignore until the end.
 
-Betaflight documents multiple failsafe stages and explicitly requires failsafe testing before flight. citeturn0search0turn0search5
+Betaflight documents multiple failsafe stages and explicitly requires failsafe testing before flight. [Betaflight Failsafe documentation](https://betaflight.com/docs/wiki/guides/current/Failsafe)
 
 For this project:
 
@@ -490,6 +490,8 @@ The design was frozen using these priorities:
 5. Flight performance
 
 The selection is therefore deliberately **not** just "the lightest possible drone."
+
+The VTX choice is currently treated as a **reference class**, not a procurement lock. AKK Nano3 is a useful architecture reference for a small separate analog VTX, but the exact V1 VTX will be frozen only after a currently available Germany/EU source and the exact hardware revision are verified.
 
 The architecture should allow the reader to understand:
 
@@ -765,7 +767,7 @@ Use:
 
 **Propellers stay OFF during bench motor testing.**
 
-Betaflight's setup guidance emphasizes safety, failsafe configuration and bench testing without propellers before flight. citeturn0search8
+Betaflight's setup guidance emphasizes safety, failsafe configuration and bench testing without propellers before flight. [Betaflight Setup Guide](https://betaflight.com/docs/wiki/getting-started/setup-guide)
 
 ### Phase 8 — First flight
 
@@ -893,7 +895,7 @@ At minimum:
 - First flights should be performed in a controlled environment.
 - Follow applicable local aviation, RF and battery-safety requirements.
 
-Betaflight's current documentation specifically emphasizes failsafe setup and testing before flight. citeturn0search0turn0search8
+Betaflight's current documentation specifically emphasizes failsafe setup and testing before flight. [Betaflight Failsafe documentation](https://betaflight.com/docs/wiki/guides/current/Failsafe) and [Setup Guide](https://betaflight.com/docs/wiki/getting-started/setup-guide)
 
 ---
 
