@@ -10,7 +10,7 @@
 | FPV camera | 1 | Caddx Ant Nano | Selected |
 | Brushless motor | 4 | 0802, ~22,000 KV | Selected |
 | Battery | 1+ | 1S 450 mAh HV, BT2.0 | Verify exact pack |
-| Analog VTX | 1 | AKK Nano3-class | Verify exact revision |
+| Analog VTX | 1 | Separate analog VTX, AKK Nano3-class reference | Exact V1 part TBD; verify current EU source/revision |
 | Frame | 1 | 75 mm-class commercial whoop | Selected |
 | Propellers | 1+ set | 40 mm, 3-blade | Selected |
 | Antenna | 1 | Matched to final VTX | TBD |
