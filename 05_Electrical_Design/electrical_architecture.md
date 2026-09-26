@@ -19,7 +19,7 @@ F4 1S 5A AIO FC
    └── GND common reference
 ```
 
-The selected BETAFPV FC is designed for 1S operation and includes the ESC on the same PCB. BETAFPV specifies 5 A continuous and 6 A peak ESC current for 3 seconds. The board uses a BT2.0 power cable. citeturn2view0
+The selected BETAFPV FC is designed for 1S operation and includes the ESC on the same PCB. BETAFPV specifies 5 A continuous and 6 A peak ESC current for 3 seconds. The board uses a BT2.0 power cable. [BETAFPV F4 1S 5A AIO documentation](https://betafpv.com/products/f4-1s-5a-aio-brushless-flight-controller-elrs-2-4g)
 
 **Important:** the internal regulator topology is not assumed here. The final board revision must be checked before connecting external loads.
 
@@ -35,7 +35,7 @@ FC / integrated  ├── M3 Rear Right
 
 Each motor is a 3-phase brushless motor connected to one integrated ESC channel.
 
-The FC supports DShot300 and DShot600 according to BETAFPV. citeturn2view0
+The FC supports DShot300 and DShot600 according to BETAFPV. [BETAFPV F4 1S 5A AIO documentation](https://betafpv.com/products/f4-1s-5a-aio-brushless-flight-controller-elrs-2-4g)
 
 Motor numbering and rotation direction will be verified during bring-up with the propellers removed.
 
@@ -60,11 +60,11 @@ AKK Nano3-class VTX
 FPV goggles / receiver
 ```
 
-The BETAFPV wiring documentation explicitly shows an external analog VTX interface with **CAM, VTX, GND, +5V and SmartAudio (SA)** connections. It also shows the camera connected through the analog-video path. citeturn3view0
+The BETAFPV wiring documentation explicitly shows an external analog VTX interface with **CAM, VTX, GND, +5V and SmartAudio (SA)** connections. It also shows the camera connected through the analog-video path. [BETAFPV F4 1S 5A AIO wiring documentation](https://betafpv.com/products/f4-1s-5a-aio-brushless-flight-controller-elrs-2-4g)
 
-The Caddx Ant Nano is an analog CVBS camera. Available documentation lists 5–25 V input, 14 × 14 mm size and approximately 2 g mass. citeturn4search0turn4search3
+The Caddx Ant Nano is an analog CVBS camera. The exact input-voltage range is revision-dependent, so the purchased camera revision must be checked before final wiring. The referenced EU listing identifies a compact 14 × 14 mm analog camera.
 
-The AKK Nano3-class VTX accepts 3.2–5.5 V and provides 25/200 mW output with SmartAudio. citeturn1search1
+The AKK Nano3-class VTX is retained as a reference architecture. A reference listing specifies 3.2–5.5 V input, 25/200 mW output and SmartAudio. The exact V1 VTX is not frozen until a current Germany/EU source and exact revision are verified. [AKK Nano3 reference specification](https://ledge-team.com/en-gb/VTX/AKK-Nano3-VTX-25-50-100-200mw?limit=15)
 
 ## 4. Radio-control architecture
 
@@ -83,7 +83,7 @@ STM32F411 / Betaflight
 Flight-control loop
 ```
 
-BETAFPV states that the Serial ELRS receiver communicates with the FC using the Crossfire Serial Protocol (CRSF). citeturn2view0
+BETAFPV states that the Serial ELRS receiver communicates with the FC using the Crossfire Serial Protocol (CRSF). [BETAFPV F4 1S 5A AIO documentation](https://betafpv.com/products/f4-1s-5a-aio-brushless-flight-controller-elrs-2-4g)
 
 ## 5. Complete functional architecture
 
