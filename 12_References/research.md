@@ -59,3 +59,13 @@ https://www.reddit.com/r/TinyWhoop/comments/1l34k4z
 https://www.reddit.com/r/TinyWhoop/comments/1cjsii0
 
 Community discussion is practical experience, not a substitute for manufacturer specifications or measurements.
+
+
+## VTX sourcing risk
+
+AKK's current official site states that AKK stopped exporting VTX products on September 1, 2024 and warns about third-party clones. Therefore, the AKK Nano3 should be treated as an architecture/specification reference rather than a guaranteed V1 procurement part.
+
+Source:
+https://www.akktek.com/akk-race-vtx.html
+
+This does not change the V1 requirement for a **separate analog VTX**. It means the exact V1 VTX must be selected from a currently available, revision-identified source before the BOM is frozen.
