@@ -1,7 +1,7 @@
 Item,Qty,Specification,Status,Notes
 Flight controller,1,BETAFPV F4 1S 5A AIO Serial ELRS,VERIFY,Record exact revision
 Camera,1,Caddx Ant Nano,VERIFY,Record exact revision
-VTX,1,AKK Nano3-class analog VTX,VERIFY,Record exact revision
+VTX,1,Separate analog VTX; AKK Nano3-class reference,VERIFY,Exact V1 part TBD; verify current EU source and revision
 Motor,4,0802 approximately 22000KV,SELECTED,Record exact part number
 Propeller,1 set,40mm 3-blade 1.0mm-class shaft,SELECTED,Verify motor shaft
 Battery,1+,1S 450mAh HV BT2.0,SELECTED,Record C rating
