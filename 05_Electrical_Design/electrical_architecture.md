@@ -1,9 +1,8 @@
 # 05 — Electrical Architecture
 
-<figure>
-  <img src="images/system_architecture.svg" alt="Functional architecture of the 75 mm 1S FPV drone" />
-  <figcaption><em>Figure 1 — Functional system context. See the preliminary Blueprint wiring image below for the concept-stage wiring view.</em></figcaption>
-</figure>
+![Functional architecture of the 75 mm 1S FPV drone](images/system_architecture.svg)
+
+*Figure 1 — Functional system context. See the preliminary Blueprint wiring image below for the concept-stage wiring view.*
 
 ![Preliminary system wiring concept](images/blueprint_wiring_v1.jpg)
 
