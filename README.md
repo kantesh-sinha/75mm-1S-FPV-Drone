@@ -102,38 +102,20 @@ If all four motors rotated in the same direction, the aircraft body would experi
 
 # 3. The Drone Is a System, Not a Collection of Parts
 
-The important engineering idea in this project is **interfaces**.
+![Functional system architecture showing battery, flight controller, propulsion, receiver and analog video subsystems](images/system_architecture.svg)
 
-A useful way to think about the drone is:
+*Figure — Functional architecture. Exact pad-level wiring remains revision-dependent.*
 
-~~~
-BATTERY
-   │
-   ▼
-POWER DISTRIBUTION / REGULATION
-   │
-   ▼
-FLIGHT CONTROLLER
-   │
-   ├──────────► ESCs ─────────► Motors ─────────► Propellers
-   │
-   ├──────────► Receiver ─────► Pilot commands
-   │
-   └──────────► Camera/OSD ───► VTX ───────────► Goggles
-~~~
+The key to understanding this design is its **interfaces**. Every connection has a source, a signal, a destination and a verification method.
 
-Every arrow is an engineering interface.
+| Interface | Carries | What to verify |
+|---|---|---|
+| Battery → FC | Electrical power | Polarity, connector and board revision |
+| FC → ESCs → motors | Digital motor commands and motor power | Motor order, direction and output |
+| ELRS → FC | Pilot commands via CRSF | Binding, channel mapping and failsafe |
+| Camera → FC → VTX | Analog video and OSD | Video path, OSD and VTX operation |
 
-For every interface in this repository, ask:
-
-1. Who produces the signal?
-2. What exactly is the signal?
-3. Who receives it?
-4. What voltage/protocol does it use?
-5. What is the direction of information flow?
-6. How will we verify that it works?
-
-This is why the repository is structured around requirements, architecture, interfaces, integration and verification rather than only around physical components.
+This is a functional overview, not a pad-level schematic.
 
 ---
 
@@ -424,62 +406,11 @@ For this project:
 
 # 6. Complete V1 Architecture
 
-~~~
-                         ┌───────────────────┐
-                         │     1S LiPo       │
-                         │    ~450 mAh        │
-                         └─────────┬─────────┘
-                                   │ BT2.0
-                                   ▼
-                  ┌────────────────────────────────┐
-                  │       F4 1S 5A AIO FC          │
-                  │                                │
-                  │ STM32F411                      │
-                  │ BMI270                         │
-                  │ Betaflight                     │
-                  │ Serial ELRS                    │
-                  │ 4-in-1 ESC                     │
-                  │ OSD / Blackbox                 │
-                  └───────┬──────────────┬─────────┘
-                          │              │
-                    DShot │              │ CRSF
-                          │              │
-              ┌───────────┘              └─────────────┐
-              ▼                                        ▼
-       ┌─────────────┐                         ┌──────────────┐
-       │ 4-in-1 ESC  │                         │ ELRS Receiver│
-       └──┬─┬─┬─┬────┘                         └──────────────┘
-          │ │ │ │
-          ▼ ▼ ▼ ▼
-         M1 M2 M3 M4
-          │ │ │ │
-          ▼ ▼ ▼ ▼
-       Brushless motors
-          │ │ │ │
-          ▼ ▼ ▼ ▼
-        Propellers
-          │
-          ▼
-         THRUST
+![75 mm 1S FPV drone functional architecture](images/system_architecture.svg)
 
+*Figure — V1 functional architecture. Confirm the purchased hardware revision before wiring.*
 
- Camera
-   │
-   │ CVBS
-   ▼
- FC CAM input
-   │
-   │ OSD
-   ▼
- FC VTX output
-   │
-   ▼
- Analog VTX
-   │
-   │ 5.8 GHz
-   ▼
- FPV goggles
-~~~
+The flight controller is the central node. It combines sensing, flight-control computation, the integrated ESC, receiver interface and analog OSD path. The battery supplies the system; the propulsion and video subsystems provide the physical outputs.
 
 ---
 
@@ -505,46 +436,11 @@ The architecture should allow the reader to understand:
 
 # 8. Engineering Development Process
 
-This project follows a simplified engineering V-model.
+![Engineering V-model connecting requirements and architecture to implementation, verification and validation](images/engineering_v_model.svg)
 
-~~~
-                 REQUIREMENTS
-                      │
-                      ▼
-              SYSTEM ARCHITECTURE
-                      │
-                      ▼
-             SUBSYSTEM ARCHITECTURE
-                      │
-                      ▼
-              ELECTRICAL / FIRMWARE
-                      │
-                      ▼
-                   BUILD
-                      │
-                      ▼
-                INTEGRATION
-                      │
-                      ▼
-                VERIFICATION
-                      │
-                      ▼
-                 VALIDATION
-                      │
-                      ▼
-               FLIGHT EVIDENCE
-                      │
-                      ▼
-                  ITERATION
-~~~
+*Figure — Simplified V-model for this project.*
 
-The left side answers:
-
-> **What are we designing?**
-
-The right side answers:
-
-> **Did we actually build what we designed, and does it work for the intended mission?**
+The design side defines what the system should do. The implementation and test side produces evidence that it does so. When evidence exposes a gap, record the change and repeat the relevant verification.
 
 ---
 
@@ -705,112 +601,27 @@ Use it for manufacturer documentation, firmware references, datasheets, sourcing
 
 # 10. Actual Build Procedure
 
-If you want to build the drone rather than only study it, follow this sequence.
+![Build workflow from procurement and inspection through configuration, testing and measurement](images/build_workflow.svg)
 
-### Phase 1 — Understand
+*Figure — Build and evidence workflow.*
 
-- Read this README completely.
-- Read 01 Requirements.
-- Read 02 System Architecture.
-- Read 03 Component Selection.
+Follow the detailed procedures in [07_Integration](07_Integration/) and the test procedures in [08_Verification](08_Verification/). Do not skip inspection or bench verification.
 
-### Phase 2 — Procure
+### Before powering the aircraft
+- Confirm the exact FC and peripheral revisions.
+- Verify polarity, pad labels and solder joints.
+- Check for shorts and continuity where appropriate.
+- Keep propellers removed during bench motor tests.
+- Confirm receiver operation and failsafe before flight.
 
-- Read 04 BOM.
-- Select exact part numbers.
-- Record manufacturer and revision.
-- Record source and date.
-- Download relevant datasheets/manuals.
+### Before the first flight
+- Verify motor order and direction with propellers removed.
+- Confirm arming and disarming behavior.
+- Complete the relevant bench tests.
+- Use a controlled flight area and perform a short initial hover.
+- Record configuration, conditions, observations and evidence.
 
-### Phase 3 — Inspect
-
-Before soldering:
-
-- identify every board
-- identify the exact FC revision
-- photograph the FC
-- confirm pad labels
-- confirm connector polarity
-- compare the board against manufacturer documentation
-
-### Phase 4 — Electrical preparation
-
-Read:
-
-- 05 Electrical Design / electrical architecture
-- 05 Electrical Design / signal interfaces
-- 05 Electrical Design / pinout
-- 05 Electrical Design / power budget
-
-Do not invent a pinout from a similar-looking board.
-
-### Phase 5 — Assembly
-
-Follow:
-
-- 07 Integration / assembly
-- 07 Integration / wiring procedure
-- 07 Integration / bring-up checklist
-
-### Phase 6 — Firmware
-
-Follow:
-
-- 06 Firmware / firmware setup
-- 06 Firmware / ELRS setup
-- 06 Firmware / CLI baseline
-
-Always save the original configuration before making major firmware changes.
-
-### Phase 7 — Bench verification
-
-Use:
-
-- 08 Verification / test matrix
-- 08 Verification / test procedures
-
-**Propellers stay OFF during bench motor testing.**
-
-Betaflight's setup guidance emphasizes safety, failsafe configuration and bench testing without propellers before flight. [Betaflight Setup Guide](https://betaflight.com/docs/wiki/getting-started/setup-guide)
-
-### Phase 8 — First flight
-
-Only after bench tests pass:
-
-1. Install the correct propellers.
-2. Check motor direction again.
-3. Check arming behavior.
-4. Confirm failsafe.
-5. Inspect the battery.
-6. Move to a controlled flight area.
-7. Perform a short hover.
-8. Land.
-9. Inspect the aircraft.
-10. Record the result.
-
-### Phase 9 — Validation
-
-Record:
-
-- battery
-- duration
-- weight
-- voltage
-- current where measurable
-- temperature
-- environment
-- firmware configuration
-- video
-- Blackbox data
-- observations
-
-### Phase 10 — Iterate
-
-Do not hide failures.
-
-Record:
-
-**what happened → why it mattered → what changed → how it was verified.**
+Detailed assembly, bring-up and flight procedures remain in their respective folders.
 
 ---
 
