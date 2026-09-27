@@ -1,10 +1,15 @@
 # 05 — Electrical Architecture
 
+<figure>
+  <img src="images/system_architecture.svg" alt="Functional architecture of the 75 mm 1S FPV drone" />
+  <figcaption><em>Figure 1 — Functional system context. See the preliminary Blueprint wiring image below for the concept-stage wiring view.</em></figcaption>
+</figure>
+
 ![Preliminary system wiring concept](images/blueprint_wiring_v1.jpg)
 
-*Figure — Preliminary wiring concept generated during the concept-design phase. The functional architecture below is based on the selected V1 components and manufacturer documentation; exact pad-level wiring must still be checked against the purchased FC revision.*
+*Figure 2 — Preliminary Blueprint wiring concept. Treat it as a design input, not a verified schematic. Confirm all connections against the purchased hardware revisions.*
 
-## 1. Power architecture
+## 1. Power path
 
 ```text
 1S HV LiPo
@@ -12,124 +17,89 @@
    │ BT2.0
    ▼
 F4 1S 5A AIO FC
-   │
    ├── VBAT → integrated 4-in-1 ESC
    ├── onboard regulation → FC electronics
-   ├── 5V → camera / VTX interface
-   └── GND common reference
+   ├── peripheral supply → camera / VTX, subject to ratings
+   └── GND → common reference
 ```
 
-The selected BETAFPV FC is designed for 1S operation and includes the ESC on the same PCB. BETAFPV specifies 5 A continuous and 6 A peak ESC current for 3 seconds. The board uses a BT2.0 power cable. [BETAFPV F4 1S 5A AIO documentation](https://betafpv.com/products/f4-1s-5a-aio-brushless-flight-controller-elrs-2-4g)
+BETAFPV documents the selected F4 1S 5A AIO family for 1S operation, with 5 A continuous and 6 A peak ESC current for 3 seconds and a BT2.0 power cable. Confirm the exact purchased revision and its peripheral power capabilities before connection. [Manufacturer documentation](https://betafpv.com/products/f4-1s-5a-aio-brushless-flight-controller-elrs-2-4g)
 
-**Important:** the internal regulator topology is not assumed here. The final board revision must be checked before connecting external loads.
+## 2. Propulsion interfaces
 
-## 2. Propulsion architecture
+| Channel | Functional position | Electrical interface | Verification |
+|---|---|---|---|
+| M1 | Front left | 3-phase motor output from integrated ESC | Confirm mapping and direction |
+| M2 | Front right | 3-phase motor output from integrated ESC | Confirm mapping and direction |
+| M3 | Rear right | 3-phase motor output from integrated ESC | Confirm mapping and direction |
+| M4 | Rear left | 3-phase motor output from integrated ESC | Confirm mapping and direction |
 
-```text
-                 ┌── M1 Front Left
-                 ├── M2 Front Right
-FC / integrated  ├── M3 Rear Right
-4-in-1 ESC ─────┤
-                 └── M4 Rear Left
-```
+The FC sends digital motor commands to the integrated ESC. The ESC switches the motor phases. Confirm motor order and direction in Betaflight with propellers removed before any flight.
 
-Each motor is a 3-phase brushless motor connected to one integrated ESC channel.
-
-The FC supports DShot300 and DShot600 according to BETAFPV. [BETAFPV F4 1S 5A AIO documentation](https://betafpv.com/products/f4-1s-5a-aio-brushless-flight-controller-elrs-2-4g)
-
-Motor numbering and rotation direction will be verified during bring-up with the propellers removed.
-
-## 3. Analog video architecture
+## 3. Analog video interfaces
 
 ```text
-Caddx Ant Nano
-     │
-     │ CVBS analog video
-     ▼
+Camera
+  │ CVBS
+  ▼
 FC CAM input
-     │
-     │ OSD insertion
-     ▼
+  │
+  │ OSD insertion
+  ▼
 FC VTX output
-     │
-     ▼
-AKK Nano3-class VTX
-     │
-     │ 5.8 GHz RF
-     ▼
+  │
+  ▼
+Analog VTX
+  │ 5.8 GHz RF
+  ▼
 FPV goggles / receiver
 ```
 
-The BETAFPV wiring documentation explicitly shows an external analog VTX interface with **CAM, VTX, GND, +5V and SmartAudio (SA)** connections. It also shows the camera connected through the analog-video path. [BETAFPV F4 1S 5A AIO wiring documentation](https://betafpv.com/products/f4-1s-5a-aio-brushless-flight-controller-elrs-2-4g)
-
-The Caddx Ant Nano is an analog CVBS camera. The exact input-voltage range is revision-dependent, so the purchased camera revision must be checked before final wiring. The referenced EU listing identifies a compact 14 × 14 mm analog camera.
-
-The AKK Nano3-class VTX is retained as a reference architecture. A reference listing specifies 3.2–5.5 V input, 25/200 mW output and SmartAudio. The exact V1 VTX is not frozen until a current Germany/EU source and exact revision are verified. [AKK Nano3 reference specification](https://ledge-team.com/en-gb/VTX/AKK-Nano3-VTX-25-50-100-200mw?limit=15)
-
-## 4. Radio-control architecture
-
-```text
-ELRS transmitter
-       │
-       │ 2.4 GHz RF
-       ▼
-Integrated Serial ELRS receiver
-       │
-       │ CRSF
-       ▼
-STM32F411 / Betaflight
-       │
-       ▼
-Flight-control loop
-```
-
-BETAFPV states that the Serial ELRS receiver communicates with the FC using the Crossfire Serial Protocol (CRSF). [BETAFPV F4 1S 5A AIO documentation](https://betafpv.com/products/f4-1s-5a-aio-brushless-flight-controller-elrs-2-4g)
-
-## 5. Complete functional architecture
-
-```text
-                    ┌─────────────────────┐
-                    │   1S LiPo / BT2.0   │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ F4 1S 5A AIO FC     │
-                    │                     │
-                    │ STM32F411           │
-                    │ BMI270              │
-                    │ Serial ELRS         │
-                    │ Betaflight OSD      │
-                    │ 4-in-1 ESC          │
-                    └───┬─────┬─────┬─────┘
-                        │     │     │
-             DShot ─────┘     │     └──── CRSF
-                              │
-                        Analog Video
-                              │
-                 ┌────────────┴────────────┐
-                 ▼                         ▼
-          Caddx Ant Nano             AKK Nano3
-             Camera                     VTX
-                 │                         │
-                 └──── CVBS / OSD ─────────┘
-
-                    ESC outputs
-                 ┌──┬──┬──┬──┐
-                 ▼  ▼  ▼  ▼
-                M1 M2 M3 M4
-```
-
-## 6. Design status
-
-| Interface | Status | Next action |
+| Interface | Function | Design status |
 |---|---|---|
-| Battery → FC | DESIGNED | Verify purchased FC revision |
-| FC → M1–M4 | DESIGNED | Verify motor numbering |
-| Camera → CAM | DESIGNED | Verify exact pads |
-| FC → VTX | DESIGNED | Verify VTX/SA pads |
-| ELRS → Betaflight | DOCUMENTED | Configure and bench-test |
-| DShot → ESC | DOCUMENTED | Verify Betaflight configuration |
-| Ground reference | DESIGNED | Continuity check before power-up |
+| Camera supply | Power for camera | Exact camera revision and voltage to verify |
+| CVBS | Camera video into FC | Functional path designed; pads to verify |
+| OSD/video output | FC video output to VTX | Confirm board revision and video configuration |
+| VTX supply | Power for VTX | Exact VTX and FC supply compatibility TBD |
+| SmartAudio | VTX configuration, if supported | Confirm both endpoint revisions |
 
-**Rule:** this document defines the intended electrical architecture. It is not a substitute for the pad labels on the physical FC.
+The BETAFPV documentation shows an external analog VTX interface. The Caddx Ant Nano-class camera and AKK Nano3-class VTX remain revision-sensitive selections. Do not infer power compatibility from product-family names alone.
+
+## 4. Radio-control interface
+
+```text
+Pilot transmitter
+      │ 2.4 GHz RF
+      ▼
+Integrated Serial ELRS receiver
+      │ CRSF (internal FC interface)
+      ▼
+STM32F411 / Betaflight
+```
+
+The selected architecture uses the FC's integrated Serial ELRS receiver. Do not add external receiver wiring unless the actual hardware differs from the selected variant.
+
+## 5. Functional interface summary
+
+| Interface | Direction | Purpose | Verification method |
+|---|---|---|---|
+| BT2.0 / VBAT | Battery → FC | Power | Polarity and continuity inspection |
+| DShot | FC → ESC | Motor command | Props-off motor test |
+| 3-phase motor outputs | ESC → motors | Motor drive | Order and direction check |
+| CRSF | Receiver → FC | Pilot control | Receiver tab and failsafe test |
+| CVBS | Camera → FC | Analog video | Live video |
+| Analog video | FC → VTX | Video with OSD | Video and OSD check |
+| SmartAudio | FC → VTX | VTX configuration | Verify exact pads and configuration |
+
+## 6. Design status and release checks
+
+| Item | Status | Required evidence |
+|---|---|---|
+| Functional power architecture | DESIGNED | Exact board revision inspection |
+| Motor channel mapping | DESIGNED | Props-off mapping test |
+| Camera/video signal path | DESIGNED | Video and OSD test |
+| Peripheral power compatibility | TBD | Manufacturer ratings for exact revisions |
+| VTX selection | Reference class only | Current source and exact part/revision |
+| Pad-level wiring | TBD | Physical board labels and revision-specific documentation |
+
+> **Wiring rule:** this document defines functional intent. It is not a substitute for the pad labels and specifications of the actual hardware.
