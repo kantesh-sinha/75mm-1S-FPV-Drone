@@ -102,10 +102,6 @@ If all four motors rotated in the same direction, the aircraft body would experi
 
 # 3. The Drone Is a System, Not a Collection of Parts
 
-![Functional system architecture showing battery, flight controller, propulsion, receiver and analog video subsystems](images/system_architecture.svg)
-
-*Figure — Functional architecture. Exact pad-level wiring remains revision-dependent.*
-
 The key to understanding this design is its **interfaces**. Every connection has a source, a signal, a destination and a verification method.
 
 | Interface | Carries | What to verify |
