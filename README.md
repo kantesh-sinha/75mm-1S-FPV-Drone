@@ -6,6 +6,10 @@
 
 > **Project status:** V1 architecture frozen · Documentation baseline complete · Physical build not yet validated
 
+> **Reader guide:** Start with the system diagram, then follow the numbered sections. Each document distinguishes design intent from verified or measured evidence.
+
+[System architecture](images/system_architecture.svg) · [Engineering V-model](images/engineering_v_model.svg) · [Build workflow](images/build_workflow.svg) · [Repository map](#16-repository-map)
+
 A small FPV drone developed as an **embedded-electronics, firmware, integration, verification and validation project**.
 
 The goal of this repository is not simply to show a finished drone. It explains **why the system is built this way, what every subsystem does, how the interfaces connect, how to configure it, how to test it, and how to turn the design into measured engineering evidence.**
