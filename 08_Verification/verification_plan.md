@@ -1,9 +1,8 @@
 # 08 — Verification Plan
 
-<figure>
-  <img src="../images/engineering_v_model.svg" alt="Engineering V-model connecting requirements and design to implementation, verification and validation" />
-  <figcaption><em>Figure 1 — The project V-model. Verification evidence must be linked to the implemented revision.</em></figcaption>
-</figure>
+![Engineering V-model connecting requirements and design to implementation, verification and validation](../images/engineering_v_model.svg)
+
+*Figure 1 — The project V-model. Verification evidence must be linked to the implemented revision.*
 
 ## Purpose
 
