@@ -1,9 +1,8 @@
 # 02 — System Architecture
 
-<figure>
-  <img src="../images/system_architecture.svg" alt="Functional architecture of the 75 mm 1S FPV drone" />
-  <figcaption><em>Figure 1 — Functional V1 architecture. This is not a pad-level wiring schematic.</em></figcaption>
-</figure>
+![Functional architecture of the 75 mm 1S FPV drone](../images/system_architecture.svg)
+
+*Figure 1 — Functional V1 architecture. This is not a pad-level wiring schematic.*
 
 ## System boundary
 
