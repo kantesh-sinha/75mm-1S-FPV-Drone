@@ -8,6 +8,8 @@
 
 > **Reader guide:** Start with the system diagram, then follow the numbered sections. Each document distinguishes design intent from verified or measured evidence.
 
+[Project status and release gates](PROJECT_REVIEW.md)
+
 [System architecture](images/system_architecture.svg) · [Engineering V-model](images/engineering_v_model.svg) · [Build workflow](images/build_workflow.svg) · [Repository map](#16-repository-map)
 
 A small FPV drone developed as an **embedded-electronics, firmware, integration, verification and validation project**.
