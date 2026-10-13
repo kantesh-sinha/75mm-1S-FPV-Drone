@@ -303,6 +303,8 @@ Examples:
 
 → [08_Verification](08_Verification/)
 
+Use the [test record template](08_Verification/TEST_RECORD_TEMPLATE.md) for each run so the setup, acceptance criteria and evidence are captured consistently.
+
 ## 09 — Validation
 
 Validation asks:
